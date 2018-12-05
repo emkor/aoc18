@@ -1,16 +1,14 @@
 package org.emkor;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
+
+import static org.emkor.TextFileUtil.readLines;
 
 public class Puzzle01 {
     public static void main(String[] args) {
-        List<String> lines = readTextFile("/home/mat/projects/aoc18/src/resources/puzzle01.txt");
+        List<String> lines = readLines("/home/mat/projects/aoc18/src/resources/puzzle01.txt");
         Integer result = calcSum(lines);
         System.out.println("The first part sum is: " + result);
         Integer duplicate = calcSumAndReturnFirstDuplicate(lines, new ArrayList<>());
@@ -45,13 +43,4 @@ public class Puzzle01 {
     }
 
 
-    private static List<String> readTextFile(String path) {
-        List<String> lines = new ArrayList<>();
-        try (Stream<String> stream = Files.lines(Paths.get(path))) {
-            stream.forEach(lines::add);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return lines;
-    }
 }
