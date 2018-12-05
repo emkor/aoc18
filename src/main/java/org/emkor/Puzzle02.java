@@ -25,22 +25,20 @@ public class Puzzle02 {
                 threeLettersDuplicatedCount += 1;
             }
         }
-        return (twoLettersDuplicatedCount * threeLettersDuplicatedCount);
+        return twoLettersDuplicatedCount * threeLettersDuplicatedCount;
     }
 
     static Boolean hasThreeLetters(String code) {
-        Map<Character, Integer> charToCount = new HashMap<>();
-        for (Character c : code.toCharArray()) {
-            if (charToCount.containsKey(c)) {
-                charToCount.put(c, charToCount.get(c) + 1);
-            } else {
-                charToCount.put(c, 1);
-            }
-        }
+        Map<Character, Integer> charToCount = buildCharToOccurrencesMap(code);
         return charToCount.containsValue(3);
     }
 
     static Boolean hasTwoLetters(String code) {
+        Map<Character, Integer> charToCount = buildCharToOccurrencesMap(code);
+        return charToCount.containsValue(2);
+    }
+
+    private static Map<Character, Integer> buildCharToOccurrencesMap(String code) {
         Map<Character, Integer> charToCount = new HashMap<>();
         for (Character c : code.toCharArray()) {
             if (charToCount.containsKey(c)) {
@@ -49,6 +47,6 @@ public class Puzzle02 {
                 charToCount.put(c, 1);
             }
         }
-        return charToCount.containsValue(2);
+        return charToCount;
     }
 }
