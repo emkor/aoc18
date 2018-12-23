@@ -20,21 +20,21 @@ public class Puzzle01Test {
     @Test
     public void calcSumAndReturnFirstDuplicateSimpleCaseTest() {
         List<String> testInput = Arrays.asList("+1", "-1");
-        Integer result = Puzzle01.calcSumAndReturnFirstDuplicate(testInput, new ArrayList<>());
+        Integer result = Puzzle01.calcSumAndReturnFirstDuplicate(testInput);
         assertEquals(Integer.valueOf(0), result);
     }
 
     @Test
     public void calcSumAndReturnFirstDuplicateLongerCaseTest() {
         List<String> testInput = Arrays.asList("+3", "+3", "+4", "-2", "-4");
-        Integer result = Puzzle01.calcSumAndReturnFirstDuplicate(testInput, new ArrayList<>());
+        Integer result = Puzzle01.calcSumAndReturnFirstDuplicate(testInput);
         assertEquals(Integer.valueOf(10), result);
     }
 
     @Test
     public void calcSumAndReturnFirstDuplicateLastCaseTest() {
         List<String> testInput = Arrays.asList("+7", "+7", "-2", "-7", "-4");
-        Integer result = Puzzle01.calcSumAndReturnFirstDuplicate(testInput, new ArrayList<>());
+        Integer result = Puzzle01.calcSumAndReturnFirstDuplicate(testInput);
         assertEquals(Integer.valueOf(14), result);
     }
 
