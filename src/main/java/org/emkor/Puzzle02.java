@@ -8,8 +8,7 @@ import static org.emkor.TextFileUtil.readLines;
 
 public class Puzzle02 {
     public static void main(String[] args) {
-        List<String> lines = readLines("/home/mat/projects/aoc18/src/resources/puzzle01.txt");
-
+        List<String> lines = readLines("/home/mat/project/aoc18/src/resources/puzzle02.txt");
         Integer checkSum = countChecksum(lines);
         System.out.println("The checksum is " + checkSum);
     }
