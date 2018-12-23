@@ -9,6 +9,8 @@ public class Puzzle02 {
         List<String> lines = readLines("/home/mat/project/aoc18/src/resources/puzzle02.txt");
         Integer checkSum = countChecksum(lines);
         System.out.println("The checksum is " + checkSum);
+        String commonLetters = findCommonLetters(lines);
+        System.out.println("Common letters are: " + commonLetters);
     }
 
     public static Integer countChecksum(List<String> lines) {
@@ -25,13 +27,36 @@ public class Puzzle02 {
         return twoLettersDuplicatedCount * threeLettersDuplicatedCount;
     }
 
-    static Set<String> lineVariations(String line) {
-        Set<String> variations = new HashSet<>();
-        for (int i = 0; i < line.length(); i++) {
-            String variation = line.substring(0, i) + line.substring(i+1);
-            variations.add(variation);
+    public static String findCommonLetters(List<String> lines) {
+        Map<Integer, Set<String>> indexToStringVariants = new HashMap<>();
+        for (String line : lines) {
+            Map<Integer, String> variations = lineVariations(line);
+            for (Map.Entry<Integer, String> e : variations.entrySet()) {
+                Set<String> indexWordVariants = indexToStringVariants.get(e.getKey());
+                if (indexWordVariants == null) {
+                    indexWordVariants = new HashSet<>();
+                }
+                if (indexWordVariants.contains(e.getValue())) {
+                    return e.getValue();
+                } else {
+                    indexWordVariants.add(e.getValue());
+                    indexToStringVariants.put(e.getKey(), indexWordVariants);
+                }
+            }
         }
-        return variations;
+        return null;
+    }
+
+    static Map<Integer, String> lineVariations(String line) {
+        Map<Integer, String> indexToLineVariations = new HashMap<>();
+        for (int i = 0; i < line.length(); i++) {
+            indexToLineVariations.put(i, wordWithoutCharAt(line, i));
+        }
+        return indexToLineVariations;
+    }
+
+    static String wordWithoutCharAt(String word, Integer index) {
+        return word.substring(0, index) + word.substring(index + 1);
     }
 
     static Boolean hasThreeLetters(String code) {
