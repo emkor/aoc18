@@ -3,6 +3,7 @@ package org.emkor;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.util.Collections.disjoint;
 import static org.emkor.TextFileUtil.readLines;
 
 class Area {
@@ -97,9 +98,26 @@ public class Puzzle03 {
         List<String> lines = readLines("/home/mat/project/aoc18/src/resources/puzzle03.txt");
         List<Claim> claims = lines.stream().map(Claim::fromLine).collect(Collectors.toList());
         System.out.println("Overlapping areas inches: " + overlappingClaimsArea(claims));
+        Claim nonOverlappingClaim = findNonOverlappingClaim(claims);
+        System.out.println("Non-overlapping claim is: " + nonOverlappingClaim);
     }
 
     public static Integer overlappingClaimsArea(List<Claim> claims) {
+        Set<Area> overlappingAreas = getOverlappingAreas(claims);
+        return overlappingAreas.size();
+    }
+
+    public static Claim findNonOverlappingClaim(List<Claim> claims) {
+        Set<Area> overlappingAreas = getOverlappingAreas(claims);
+        for (Claim c : claims) {
+            if (disjoint(overlappingAreas, c.toAreas())) {
+                return c;
+            }
+        }
+        return null;
+    }
+
+    private static Set<Area> getOverlappingAreas(List<Claim> claims) {
         Set<Area> takenAreas = new HashSet<>();
         Set<Area> overlappingAreas = new HashSet<>();
         for (Claim c : claims) {
@@ -111,6 +129,6 @@ public class Puzzle03 {
                 }
             }
         }
-        return overlappingAreas.size();
+        return overlappingAreas;
     }
 }
