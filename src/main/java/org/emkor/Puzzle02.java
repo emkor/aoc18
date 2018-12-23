@@ -1,8 +1,6 @@
 package org.emkor;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.emkor.TextFileUtil.readLines;
 
@@ -25,6 +23,15 @@ public class Puzzle02 {
             }
         }
         return twoLettersDuplicatedCount * threeLettersDuplicatedCount;
+    }
+
+    static Set<String> lineVariations(String line) {
+        Set<String> variations = new HashSet<>();
+        for (int i = 0; i < line.length(); i++) {
+            String variation = line.substring(0, i) + line.substring(i+1);
+            variations.add(variation);
+        }
+        return variations;
     }
 
     static Boolean hasThreeLetters(String code) {

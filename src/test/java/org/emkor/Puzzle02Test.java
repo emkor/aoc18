@@ -3,7 +3,9 @@ package org.emkor;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.emkor.Puzzle02.*;
 import static org.junit.Assert.assertEquals;
@@ -38,5 +40,12 @@ public class Puzzle02Test {
         Integer expectedChecksum = 12;
         Integer actualChecksum = countChecksum(lines);
         assertEquals(expectedChecksum, actualChecksum);
+    }
+
+    @Test
+    public void shouldGeneratelineVariations() {
+        Set<String> expected_variations = new HashSet<>(Arrays.asList("ghij", "fhij", "fgij", "fghj", "fghi"));
+        Set<String> variations = lineVariations("fghij");
+        assertEquals(variations, expected_variations);
     }
 }
